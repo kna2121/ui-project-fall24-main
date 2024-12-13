@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'professorpage_one.css')}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename = 'professorpage_one.js')}}"></script>
+
+    <title>What CULPA Doesn't Tell You - CS Edition</title>
+</head>
+
+<body>
+    <div id="layout">
+        <div id="coursesandprofessorssidebar">
+            <div id="courseandprof">
+                Courses and Professors
+            </div>
+            <div id=coursesidebar>
+                <div class="coursesandprofessorscollapsible">
+                    <button type="button" id='coursebutton' class="collapsiblebutton collapsibletextsize">Courses
+                        +</button>
+                </div>
+                <div id="listofcourses" class="hidden">
+                    <a href="#coms1004">COMS1004: Introduction to Computer Science/ Programming in Java
+                        <button type="button" class="reviewbutton">Leave a Review</button>
+                    </a>
+                    <a href="#coms3203">COMS3203: Discrete Mathemetatics
+                        <button type="button" class="reviewbutton">Leave a Review</button>
+                    </a>
+                    <a href="coms4701">COMS4701: Artificial Intelligence
+                        <button type="button" class="reviewbutton">Leave a Review</button>
+                    </a>
+                    <div class="missing">Course Missing?
+                        <a class="missinglink" href="#missingreview">Leave a Review</a>
+                    </div>
+                </div>
+            </div>
+            <div class="coursesandprofessorscollapsible">
+                <button type="button" id='professorbutton' class="collapsiblebutton collapsibletextsize">Professors
+                    +</button>
+            </div>
+            <div id="listofprofessors" class="hidden">
+                <a href="#blaer">Paul Blaer
+                    <button type="button" class="reviewbutton">Leave a Review</button>
+                </a>
+                <a class="active" href="#cannon">Adam Cannon</a>
+                <a href="#dear">Tony Dear
+                    <button type="button" class="reviewbutton">Leave a Review</button>
+                </a>
+                <div class="missing">Professor Missing?
+                    <a class="missinglink" href="#missingreview">Leave a Review</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="content">
+        <div id="searchboxcontainer" class="container">
+            <article role="article" data-focusible="true" tabindex="0">
+                <div>
+                    <header class="websitename">What Culpa Doesn't Tell You - CS Edition</header>
+                </div>
+                <div>
+                    <span id="searchboxlinetwo">
+                        <input type="text" id="searchbox" placeholder="search">
+                        <button type="button" id="filterbutton">Filter</button>
+                        <button type="button" id="search">Search</button>
+                    </span>
+                    <div id="advancedsearch">
+                        <h2>Advanced Search</h2>
+                        <div id="filter">
+                            <table id="advancedsearchtable">
+                                <tr>
+                                    <td align="left">
+                                        <input type="checkbox" name="fall" value="fall">
+                                        <label for="fall">Fall</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="noprereq" value="noprereq">
+                                        <label for="noprereq">No Prerequisites</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="examsbased" value="examsbased">
+                                        <label for="examsbased">Exam-Based</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="industryrel" value="industryrel">
+                                        <!-- If they select 3, 3.0-3.99999 will be counted -->
+                                        <label for="industryrel">Industry Relevance (out of 5)
+                                            <select id="selectindustryrel">
+                                                <option value="" selected disabled hidden>0</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="four">4</option>
+                                                <option value="five">5</option>
+                                            </select>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <input type="checkbox" name="spring" value="spring">
+                                        <label for="spring">Spring</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="prereq" value="prereq">
+                                        <!-- TODO: make this select multiple -->
+                                        <!-- TODO: add more options -->
+                                        <label for="prereq">Prerequisites
+                                            <select id="prerequisites">
+                                                <option value="" selected disabled hidden>Select Course</option>
+                                                <option value="coms1004">COMS1004: Introduction to Computer
+                                                    Science/Programming in Java
+                                                </option>
+                                                <option value="coms3134">COMS3134: Data Structures</option>
+                                                <option value="coms3203">COMS3203: Discrete Mathemetatics</option>
+                                                <option value="coms3157">COMS3157: Advanced Programming</option>
+                                                <option value="coms3261">COMS3261: Computer Science Theory</option>
+                                                <option value="cseee3827">CSEE3827: Fundamentals of Computer Systems
+                                                </option>
+                                                <option value="coms4111">COMS4111: Introduction to Databases</option>
+                                                <option value="coms4115">COMS 4115: Programming Languages and
+                                                    Translators</option>
+                                            </select>
+                                        </label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="projectbased" value="projectbased">
+                                        <label for="projectbased">Project-Based</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="profrating" value="profrating">
+                                        <label for="profrating">Professor Rating (out of 10)
+                                            <select id="profrating">
+                                                <option value="" selected disabled hidden>0</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="four">4</option>
+                                                <option value="five">5</option>
+                                                <option value="six">6</option>
+                                                <option value="seven">7</option>
+                                                <option value="eight">8</option>
+                                                <option value="nine">9</option>
+                                                <option value="ten">10</option>
+                                            </select>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <input type="checkbox" name="core" value="core">
+                                        <label for="core">CS Core</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="undergrad" value="undergrad">
+                                        <label for="undergrad">Undergraduate</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="noattendance" value="noattendance">
+                                        <label for="noattendance">No Attendance</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="coursedif" value="coursedif">
+                                        <label for="coursedif">Course Difficulty (out of 10)
+                                            <select id="coursedif">
+                                                <option value="" selected disabled hidden>0</option>
+                                                <option value="one">1</option>
+                                                <option value="two">2</option>
+                                                <option value="three">3</option>
+                                                <option value="four">4</option>
+                                                <option value="five">5</option>
+                                                <option value="six">6</option>
+                                                <option value="seven">7</option>
+                                                <option value="eight">8</option>
+                                                <option value="nine">9</option>
+                                                <option value="ten">10</option>
+                                            </select>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <input type="checkbox" name="elective" value="elective">
+                                        <label for="elective">CS Elective</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="grad" value="grad">
+                                        <label for="grad">Graduate</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="rec" value="rec">
+                                        <label for="rec">Recordings Available for All</label>
+                                    </td>
+                                    <td align="left">
+                                        <input type="checkbox" name="curve" value="curve">
+                                        <label for="curve">Curve</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div id="professornameandreview">
+            <article role="article" data-focusible="true" tabindex="0">
+                <header>Professor Adam Cannon</header>
+                <div id="professorrating">
+                    <!-- https://www.w3schools.com/howto/howto_css_user_rating.asp -->
+                    <span class="professorratingheading">Overall Rating</span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star-half-full"></span>
+                    <p id="averagestar">4.5/5 based on 2 reviews</p>
+                    <div id="professorratingtablecontainer">
+                        <table id=="professorratingtable" class="courseinformationline">
+                            <tr>
+                                <td class="stars">5 Stars</td>
+                                <td class="barcontainer">
+                                    <div class="bar5"></div>
+                                </td>
+                                <td class="votecount">1 vote</td>
+                            </tr>
+                            <tr>
+                                <td class="stars">4 Stars</td>
+                                <td class="barcontainer">
+                                    <div class="bar4"></div>
+                                </td>
+                                <td class="votecount">1 vote</td>
+                            </tr>
+                            <tr>
+                                <td class="stars">3 Stars</td>
+                                <td class="barcontainer bar3"></td>
+                                <td class="votecount">0 votes</td>
+                            </tr>
+                            <tr>
+                                <td class="stars">2 Stars</td>
+                                <td class="barcontainer bar2"></td>
+                                <td class="votecount">0 votes</td>
+                            </tr>
+                            <tr>
+                                <td class="stars">1 Stars</td>
+                                <td class="barcontainer bar1"></td>
+                                <td class="votecount">0 votes</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="disclaimerandreview">
+                    <p id="disclaimer">Disclaimer: Professor policies may have changed. This information is from past
+                        students
+                        experiences.</p>
+                    <p id="tookthisclass">Had this professor before?</p>
+                    <button type="button" id="contentreviewbutton" class="reviewbutton">Leave a Review!</button>
+                </div>
+            </article>
+        </div>
+
+        <div id="courseinformationcontainer">
+            <div class="onecourse">
+                <div class="coursename">COMS1004: Introduction to Computer Science/ Programming in Java</div>
+                <div class="courseinformation">
+                    <span class="courseinformationline">
+                        <div class="boxeswithbestrating">
+                            <p class="boxtext">Rating</p>
+                            <p class="vote">9/10</p>
+                            <p class="boxtext">out of 2 votes</p>
+                        </div>
+                        <div class="boxeswithgoodrating">
+                            <p class="boxtext">Curve</p>
+                            <p class="vote">Yes</p>
+                        </div>
+                        <div class="boxeswithmediumrating">
+                            <p class="boxtext">Difficulty</p>
+                            <p class="vote">4/10</p>
+                            <p class="boxtext">out of 2 votes</p>
+                        </div>
+                    </span>
+                    <div class="courseinformationline">
+                        <div class="box">
+                            <p>Semester</p>
+                            <p>Spring</p>
+                        </div>
+                    </div>
+                    <div class="courseinformationline">
+                        <div class="box">
+                            <p>Exams/Projects-based: Exams</p>
+                            <p>Attendance: In-Class Quizzes every other week</p>
+                            <p>Recordings: None</p>
+                            <p>*Note: Spring 2022</p>
+                        </div>
+                    </div>
+                    <span class="courseinformationline">
+                        <div class="box">
+                            <table>
+                                <caption>Grading Breakdown</caption>
+                                <tr>
+                                    <td class="color-legend homework"></td>
+                                    <td>Homework:</td>
+                                    <td>50%</td>
+                                </tr>
+                                <tr>
+                                    <td class="color-legend attendance"></td>
+                                    <td>In Class Quizzes</td>
+                                    <td>15%</td>
+                                </tr>
+                                <tr>
+                                    <td class="color-legend exam1"></td>
+                                    <td>Final:</td>
+                                    <td>35%</td>
+                                </tr>
+                            </table>
+                            <p>*NOTE: Spring 2022</p>
+                        </div>
+                        <div class="apiechart">
+                            <!-- https://www.w3schools.com/ai/ai_chartjs.asp -->
+                            <canvas id="cannonpiechart"></canvas>
+
+                            <script>
+                                var xValues = ["Homework", "In Class Quizzes", "Final"];
+                                var yValues = [50, 15, 35];
+                                var pieColors = ["yellow", "#93C47D", "#EA9999"];
+
+                                new Chart("cannonpiechart", {
+                                    type: 'pie',
+                                    data: {
+                                        labels: xValues,
+                                        datasets: [
+                                            {
+                                                backgroundColor: pieColors,
+                                                data: yValues
+                                            }
+                                        ]
+                                    },
+                                    options: {
+                                        legend: {
+                                            display: false,
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </span>
+                    <span class="courseinformationline">
+                        <div class="box">
+                            <table>
+                                <caption>Course Workload</caption>
+                                <tr>
+                                    <th>Hours a Week</th>
+                                    <th>Votes</th>
+                                </tr>
+                                <tr>
+                                    <td>0-3</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>3-6</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>6-9</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>9-12</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>12+</td>
+                                    <td>0</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="barchart">
+                            <canvas id="cannonbarchart"></canvas>
+                            <!-- https://www.w3schools.com/ai/ai_chartjs.asp -->
+                            <!-- https://www.geeksforgeeks.org/how-to-implement-bar-and-pie-charts-using-chart-js/ -->
+                            <script>
+                                var xValues = ["0-3 Hours", "3-6 Hours", "6-9 Hours", "9-12 Hours", "12+ Hours"];
+                                var yValues = [0, 2, 0, 0, 0];
+                                var barColors = "orange";
+
+                                new Chart("cannonbarchart", {
+                                    type: "bar",
+                                    data: {
+                                        labels: xValues,
+                                        datasets: [{
+                                            label: "Votes",
+                                            backgroundColor: barColors,
+                                            data: yValues
+                                        }]
+                                    },
+                                    options: {
+                                        legend: { display: false },
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </span>
+                </div>
+                <div class="additionalcomments courseinformationline">
+                    <table>
+                        <tr>
+                            <th>Additional Comments</th>
+                        </tr>
+                    </table>
+                </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
